@@ -9,16 +9,25 @@ populateForm();
 form.addEventListener("submit", onSubmitForm);
 
 function onSubmitForm (evt) {
-evt.preventDefault();
-const {
-    elements: {email, message }
-  } = evt.currentTarget;
-  const emailEl = evt.currentTarget.email.value;
-  const messageEl = evt.currentTarget.message.value;
-  console.log({emailEl, messageEl});
-evt.currentTarget.reset();
-localStorage.removeItem(STORAGE_KEY);
-};
+  evt.preventDefault();
+  if (evt.currentTarget.email.value === "" || evt.currentTarget.message.value === "") {
+    alert("Заполните форму!");
+    return;
+     }
+  const {
+      elements: {email, message }
+    } = evt.currentTarget;
+    const emailEl = evt.currentTarget.email.value;
+    const messageEl = evt.currentTarget.message.value;
+    console.log({emailEl, messageEl});
+    if (email.value === "" || message.value === "") {
+       alert("Заполните форму!");
+       return false;
+        }
+      
+  evt.currentTarget.reset();
+  localStorage.removeItem(STORAGE_KEY);
+  };
 
 form.addEventListener("input", throttle(onInputFormEl, 500));
 
